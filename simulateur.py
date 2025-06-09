@@ -7,10 +7,17 @@ stats = {
     '2000': 0.25,       # Source : INSEE - Proche du revenu médian (~2050 € net/mois)
     '3200': 0.50,       # Source : DREES - Revenu moyen net
     '4500': 0.15,       # Source : INSEE - Revenus élevés > 4000€
+    '6000': 0.03,       # Source : INSEE - Top 5 %
+    '8000': 0.015,      # Source : INSEE - Top 2 %
+    '10000': 0.008,     # Source : INSEE - Top 1 %
     '1000': 0.10,       # Source : INSEE - Décile 1
     '2000': 0.20,       # Source : INSEE - Décile 3-4
+    '4000': 0.10,       # Source : INSEE - Top 10 % niveau de vie
+    '6000': 0.04,       # Source : INSEE - Très hauts revenus dispo
     '50000': 0.10,      # Source : INSEE - Patrimoine modeste
     '200000': 0.01,     # Source : France Stratégie - Top 1% patrimoine
+    '500000': 0.05,     # Source : INSEE - Top 5 % patrimoine net
+    '1000000': 0.01,    # Source : INSEE - Top 1 % patrimoine net
     'non_fumeur_non_vapoteur': 0.708,
     'cadre': 0.217,
     'LGBT+': 0.10,
@@ -40,11 +47,11 @@ with st.expander("🧍‍♂️ Caractéristiques générales", expanded=True):
 
 with st.expander("💼 Mode de vie", expanded=True):
     salaire = st.select_slider("Revenu net mensuel estimé (en €)", options=[
-        "1200", "2000", "3200", "4500"])
+        "1200", "2000", "3200", "4500", "6000", "8000", "10000"])
     niveau_vie = st.select_slider("Niveau de vie du ménage (en €)", options=[
-        "1000", "2000"])
+        "1000", "2000", "4000", "6000"])
     patrimoine = st.select_slider("Patrimoine estimé (en €)", options=[
-        "50000", "200000"])
+        "50000", "200000", "500000", "1000000"])
     non_fumeur = st.toggle("Non-fumeur & non-vapoteur")
     lgbt = st.toggle("LGBT+")
     sport = st.toggle("Fait du sport régulièrement")
