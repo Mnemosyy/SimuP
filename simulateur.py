@@ -2,17 +2,12 @@ import streamlit as st
 
 # Probabilités statistiques simplifiées
 stats = {
-    'extraverti': 0.50,
-    'introverti': 0.50,
-    'ISTJ': 0.125,
-    'ESFJ': 0.11,
-    'ESTJ': 0.09,
-    'ENFP': 0.07,
-    'INFJ': 0.01,
-    'sal_loin': 0.10,
-    'sal_bas': 0.25,
-    'sal_moy': 0.50,
-    'sal_elev': 0.15,
+    'sociable': 0.50,
+    'réservé': 0.50,
+    'sal_moins_1500': 0.10,
+    'sal_1500_2500': 0.25,
+    'sal_2500_4000': 0.50,
+    'sal_plus_4000': 0.15,
     'nf_décile1': 0.10,
     'nf_décile2': 0.20,
     'patrimoine_1pct': 0.01,
@@ -45,23 +40,21 @@ stats = {
 
 st.title("🎯 Simulateur de Probabilité de Partenaire Idéal")
 st.markdown("""
-Sélectionnez les critères que vous recherchez chez un partenaire, et nous estimerons la probabilité de le/la rencontrer en France.
+Répondez aux questions suivantes pour estimer vos chances de rencontrer la personne idéale en France.
 """)
 
-# Sélection des critères
-perso = st.selectbox("Personnalité (MBTI)", ["ISTJ", "ESFJ", "ESTJ", "ENFP", "INFJ"])
-temp = st.radio("Tempérament général", ["extraverti", "introverti"])
-salaire = st.selectbox("Niveau de revenu personnel", ["sal_loin", "sal_bas", "sal_moy", "sal_elev"])
-niveau_vie = st.selectbox("Niveau de vie du ménage", ["nf_décile1", "nf_décile2"])
-patrimoine = st.selectbox("Niveau de patrimoine", ["patrimoine_1pct", "patrimoine_10pct"])
-non_fumeur = st.checkbox("Non-fumeur & non-vapoteur")
-cadre = st.checkbox("Cadre")
-lgbt = st.checkbox("LGBT+")
-age = st.selectbox("Tranche d'âge", ["age_18_24", "age_25_49", "age_50_64", "age_65_plus"])
+# Section 1 : Profil général
+st.header("🧍‍♂️ Caractéristiques générales")
+temp = st.radio("Quel tempérament recherchez-vous ?", ["sociable", "réservé"])
+age = st.selectbox("Tranche d'âge souhaitée", ["age_18_24", "age_25_49", "age_50_64", "age_65_plus"])
 diplome = st.checkbox("Diplômé (bac+3 ou plus)")
-loyal = st.checkbox("Loyal")
+cadre = st.checkbox("Cadre")
 grand = st.checkbox("Grand (taille > 1m80)")
 beau = st.checkbox("Beau / Belle")
+
+# Section 2 : Valeurs et traits de personnalité
+st.header("🧠 Valeurs et personnalité")
+loyal = st.checkbox("Loyal")
 humour = st.checkbox("Sens de l'humour")
 ambition = st.checkbox("Ambitieux / Ambitieuse")
 animaux = st.checkbox("Aime les animaux")
@@ -76,8 +69,17 @@ cuisine = st.checkbox("Aime cuisiner")
 lire = st.checkbox("Aime lire")
 nature = st.checkbox("Aime la nature")
 
+# Section 3 : Style de vie
+st.header("💼 Mode de vie")
+salaire = st.selectbox("Revenu net mensuel estimé", [
+    "sal_moins_1500", "sal_1500_2500", "sal_2500_4000", "sal_plus_4000"])
+niveau_vie = st.selectbox("Niveau de vie du ménage", ["nf_décile1", "nf_décile2"])
+patrimoine = st.selectbox("Niveau de patrimoine", ["patrimoine_1pct", "patrimoine_10pct"])
+non_fumeur = st.checkbox("Non-fumeur & non-vapoteur")
+lgbt = st.checkbox("LGBT+")
+
 # Calcul
-criteres = [perso, temp, salaire, niveau_vie, patrimoine, age]
+criteres = [temp, salaire, niveau_vie, patrimoine, age]
 if non_fumeur:
     criteres.append("non_fumeur-et-non-vapoteur")
 if cadre:
