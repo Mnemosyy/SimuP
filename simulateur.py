@@ -3,25 +3,25 @@ import time
 
 # Probabilités statistiques officielles ou documentées
 stats = {
-    'sal_1200': 0.10,       # Source : DREES/INSEE - SMIC ou moins
-    'sal_2000': 0.25,       # Source : INSEE - Proche du revenu médian (~2050 € net/mois)
-    'sal_3200': 0.50,       # Source : DREES - Revenu moyen net
-    'sal_4500': 0.15,       # Source : INSEE - Revenus élevés > 4000€
-    'nv_1000': 0.10,        # Source : INSEE - Décile 1
-    'nv_2000': 0.20,        # Source : INSEE - Décile 3-4
-    'pat_50000': 0.10,      # Source : INSEE - Patrimoine modeste
-    'pat_200000': 0.01,     # Source : France Stratégie - Top 1% patrimoine
-    'non_fumeur-et-non-vapoteur': 0.708,  # Source : Santé Publique France (23% fumeurs quotidiens, 6% vapoteurs)
-    'cadre': 0.217,         # Source : INSEE - Part des cadres parmi les actifs
-    'LGBT+': 0.10,          # Source : Eurobaromètre/IFOP - Estimation globale population LGBT+
-    'age_18_24': 0.08,      # Source : INSEE - Répartition par tranche d'âge
-    'age_25_49': 0.45,      # Source : INSEE
-    'age_50_64': 0.22,      # Source : INSEE
-    'age_65_plus': 0.25,    # Source : INSEE
-    'diplome_bac_plus_3': 0.40,  # Source : Ministère de l'Éducation / DEPP - Diplômés bac+3 ou plus (25-34 ans)
-    'sportif': 0.59,  # Source : INJEP - Pratique sportive régulière en France
-    'utilisateur_app_rencontre': 0.38,  # Source : IFOP/Statista - Utilisation d'apps de rencontre
-    'jamais_trompe': 0.70  # Source : IFOP - Enquête sur la fidélité (30% déclarent avoir déjà trompé)
+    '1200': 0.10,       # Source : DREES/INSEE - SMIC ou moins
+    '2000': 0.25,       # Source : INSEE - Proche du revenu médian (~2050 € net/mois)
+    '3200': 0.50,       # Source : DREES - Revenu moyen net
+    '4500': 0.15,       # Source : INSEE - Revenus élevés > 4000€
+    '1000': 0.10,       # Source : INSEE - Décile 1
+    '2000_nv': 0.20,    # Source : INSEE - Décile 3-4
+    '50000': 0.10,      # Source : INSEE - Patrimoine modeste
+    '200000': 0.01,     # Source : France Stratégie - Top 1% patrimoine
+    'non_fumeur_non_vapoteur': 0.708,
+    'cadre': 0.217,
+    'LGBT+': 0.10,
+    'age_18_24': 0.08,
+    'age_25_49': 0.45,
+    'age_50_64': 0.22,
+    'age_65_plus': 0.25,
+    'diplome_bac_plus_3': 0.40,
+    'sportif': 0.59,
+    'utilisateur_app_rencontre': 0.38,
+    'jamais_trompe': 0.70
 }
 
 st.set_page_config(page_title="Simulateur de partenaire idéal", page_icon="💘")
@@ -40,18 +40,18 @@ with st.expander("🧍‍♂️ Caractéristiques générales", expanded=True):
 
 with st.expander("💼 Mode de vie", expanded=True):
     salaire = st.select_slider("Revenu net mensuel estimé (en €)", options=[
-        ("1200 €", "sal_1200"),
-        ("2000 €", "sal_2000"),
-        ("3200 €", "sal_3200"),
-        ("4500 €", "sal_4500")
+        ("1200 €", "1200"),
+        ("2000 €", "2000"),
+        ("3200 €", "3200"),
+        ("4500 €", "4500")
     ])
     niveau_vie = st.select_slider("Niveau de vie du ménage (en €)", options=[
-        ("1000 €", "nv_1000"),
-        ("2000 €", "nv_2000")
+        ("1000 €", "1000"),
+        ("2000 €", "2000_nv")
     ])
     patrimoine = st.select_slider("Patrimoine estimé (en €)", options=[
-        ("50 000 €", "pat_50000"),
-        ("200 000 €", "pat_200000")
+        ("50 000 €", "50000"),
+        ("200 000 €", "200000")
     ])
     non_fumeur = st.toggle("Non-fumeur & non-vapoteur")
     lgbt = st.toggle("LGBT+")
@@ -61,7 +61,7 @@ with st.expander("💼 Mode de vie", expanded=True):
 
 criteres = [salaire[1], niveau_vie[1], patrimoine[1], age]
 if non_fumeur:
-    criteres.append("non_fumeur-et-non-vapoteur")
+    criteres.append("non_fumeur_non_vapoteur")
 if cadre:
     criteres.append("cadre")
 if lgbt:
