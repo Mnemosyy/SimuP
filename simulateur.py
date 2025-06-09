@@ -8,16 +8,16 @@ stats = {
     '3200': 0.50,       # Source : DREES - Revenu moyen net
     '4500': 0.15,       # Source : INSEE - Revenus élevés > 4000€
     '1000': 0.10,       # Source : INSEE - Décile 1
-    '2000_nv': 0.20,    # Source : INSEE - Décile 3-4
+    '2000': 0.20,       # Source : INSEE - Décile 3-4
     '50000': 0.10,      # Source : INSEE - Patrimoine modeste
     '200000': 0.01,     # Source : France Stratégie - Top 1% patrimoine
     'non_fumeur_non_vapoteur': 0.708,
     'cadre': 0.217,
     'LGBT+': 0.10,
-    'age_18_24': 0.08,
-    'age_25_49': 0.45,
-    'age_50_64': 0.22,
-    'age_65_plus': 0.25,
+    '18-24': 0.08,
+    '25-49': 0.45,
+    '50-64': 0.22,
+    '65+': 0.25,
     'diplome_bac_plus_3': 0.40,
     'sportif': 0.59,
     'utilisateur_app_rencontre': 0.38,
@@ -34,32 +34,24 @@ Décrivez la personne que vous recherchez et découvrez vos chances de la rencon
 """)
 
 with st.expander("🧍‍♂️ Caractéristiques générales", expanded=True):
-    age = st.radio("Tranche d'âge souhaitée", ["age_18_24", "age_25_49", "age_50_64", "age_65_plus"], index=1)
+    age = st.radio("Tranche d'âge souhaitée", ["18-24", "25-49", "50-64", "65+"], index=1)
     diplome = st.toggle("Diplômé (bac+3 ou plus)")
     cadre = st.toggle("Cadre")
 
 with st.expander("💼 Mode de vie", expanded=True):
     salaire = st.select_slider("Revenu net mensuel estimé (en €)", options=[
-        ("1200 €", "1200"),
-        ("2000 €", "2000"),
-        ("3200 €", "3200"),
-        ("4500 €", "4500")
-    ])
+        "1200", "2000", "3200", "4500"])
     niveau_vie = st.select_slider("Niveau de vie du ménage (en €)", options=[
-        ("1000 €", "1000"),
-        ("2000 €", "2000_nv")
-    ])
+        "1000", "2000"])
     patrimoine = st.select_slider("Patrimoine estimé (en €)", options=[
-        ("50 000 €", "50000"),
-        ("200 000 €", "200000")
-    ])
+        "50000", "200000"])
     non_fumeur = st.toggle("Non-fumeur & non-vapoteur")
     lgbt = st.toggle("LGBT+")
     sport = st.toggle("Fait du sport régulièrement")
     appli = st.toggle("Utilise des applis de rencontre")
     fidelite = st.toggle("N'a jamais trompé son/sa partenaire")
 
-criteres = [salaire[1], niveau_vie[1], patrimoine[1], age]
+criteres = [salaire, niveau_vie, patrimoine, age]
 if non_fumeur:
     criteres.append("non_fumeur_non_vapoteur")
 if cadre:
